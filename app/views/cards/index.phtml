@@ -1,0 +1,45 @@
+<?php
+    $floatingStyle = "float: right; position: fixed; margin-top: 0px; z-index: 200; right: 0px;";
+?>
+    <!-- <button class="tiny info" style='<?= $floatingStyle?>' >Exportar wishlist para .pdf</button> -->
+<!-- <div class="small-2 columns panel" data-equalizer-watch style='style='<?= $floatingStyle?>'' >
+    <select name="" id="">
+        <option value="">Ordenar Por:</option>
+        <option value="">Mana Cost</option>
+        <option value="">Name</option>
+        <option value="">Number</option>
+    </select>
+</div> -->
+<section role="main" class="scroll-container">
+    <?php if (!$cardsCollection['artist_name'] && !$cardsCollection['wishlist']) : ?>
+        <h2>Collection: <b style="color: #F04124"><?= $cardsCollection['deck'][0]['name'] ?> </b>
+            <small><?= $cardsCollection['deck'][0]['block']?></small>
+        </h2>
+        <h3>Release Date: <small><?= formatData($cardsCollection['deck'][0]['release_date']) ?></small></h3>
+    <?php elseif ($cardsCollection['wishlist']) : ?>
+        <h2>Wishlist</h2>
+    <?php else: ?>
+        <h2>Artist: <b style="color: #F04124"><?= normalize($cardsCollection['artist_name'])?> </b></h2>
+    <?php endif; ?>
+    <div class='row' id='cards_view_grid'>
+        <ul class="small-block-grid-4">
+            <?php foreach($cardsCollection['cards'] as $cards): ?>
+                <li>
+                    <!-- <img src="../img/cards/<?=$cards['multiverseid']?>pt.jpg" width=225> -->
+                    <img src="<?= $cards['imagem'] ?>" width=225>
+                    <span>Preço Médio: R$ <?= $cards['medium_price']?></span><br>
+                    <span>Collection/Number: <?= $cards['info_code'].'/'.$cards['number']; ?></span>
+                    
+                    <?php if (empty($cardsCollection['wishlist'])) : ?>
+                        <button class="tiny alert" onclick="inserir_registro(<?=$cards['multiverseid']?>)">
+                            Adicionar a Wishlist
+                        </button>
+                    <?php else: ?>
+                        <button class="tiny alert" onclick="deletar_registro(<?=$cards['multiverseid']?>)">Remover da Wishlist</button>
+                    <?php endif; ?>
+                    <hr>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</section>

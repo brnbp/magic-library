@@ -1,0 +1,49 @@
+<?php
+
+require_once('../app/bootstrap.php');
+    
+?>
+    <div class="container">
+        <div class="page-header">
+          <h1>Clientes <small>Total de clientes cadastrados: <?= count($allClientes); ?></small></h1>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cpf</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Telefone</th>
+                <th>Celular</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+
+            <?php
+                if(is_array($allClientes))
+                foreach($allClientes as $key => $dados):
+                    extract($dados);
+            ?>
+                <tbody>
+                    <tr id="<?= $key; ?>">
+                        <td><?= normalize($nome); ?></td>
+                        <td><?= $cpf; ?></td>
+                        <td><?= normalize($rua).', '.$numero.' - '.normalize($bairro); ?></td>
+                        <td><?= normalize($cidade); ?></td>
+                        <td><?= $telefone1; ?></td>
+                        <td><?= $telefone2; ?></td>
+                        <td>
+                            <a href="clientes/vendas?id=<?= $key; ?>" class="btn btn-success" title="Ver Compras de <?= normalize($nome); ?>">Ver</a>&nbsp;&nbsp;&nbsp;
+                            <a href="clientes/editar?id=<?= $key; ?>" class="btn btn-info" title="Editar Dados de <?= normalize($nome); ?>">Editar</a>&nbsp;&nbsp;&nbsp;
+                            <a href="clientes/actions?a=<?= $key; ?>"  class="btn btn-danger" title="Apagar <?= normalize($nome); ?>">Apagar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            <?php 
+                endforeach;
+             ?>
+
+        </table>
+        <a href="clientes/editar" class="btn btn-success" title="Cadastrar Novo Cliente">Novo Cliente</a>
+    </div>

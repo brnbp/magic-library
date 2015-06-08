@@ -1,0 +1,25 @@
+<div class="table table-responsive" style="width: 500px; margin: 40px 0 0 350px; border:0.5px solid #003cb3; padding: 15px">
+    <form method="post" action="/magicPhalcon/sign/" name="newUser">
+        <span>Cadastro</span><br>
+        <div class="form-group" style="width: 450px;">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="opcional">
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required placeholder="ex: dragons@tarkir.trk">
+
+            <label for="login">Login:</label>
+            <input type="text" name="login" id="login" class="form-control" required placeholder="de 6 a 12 caracteres">
+
+            <label for="password">Senha:</label>
+            <input type="password" name="password" id="password" class="form-control" required placeholder="de 6 a 12 caracteres">
+            
+            <input type="hidden" name="form_up" />
+
+            <input type="reset" value="Limpar" class="label alert">
+            <div style="float:right;">
+                <button type="submit" class="btn alert">Entrar em Tarkir</button>
+            </div><br><br>
+        </div>
+    </form>
+</div>

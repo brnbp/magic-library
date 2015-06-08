@@ -1,0 +1,74 @@
+<?php
+
+require_once('../app/bootstrap.php');
+
+session_name('admin');
+if(!$_SESSION['logado']){
+    header("Location: ../login.php?i=0");
+}
+
+$concat = '';
+
+if($_GET['id']):
+    $id = $_GET['id'];
+    $select = $conexao->query("SELECT * FROM clientes where id ={$id}")->fetch_assoc();
+    $concat = 'new_';
+endif;
+?>
+<div class="container col-md-5 col-md-offset-3" >
+
+    <?php if(isset($select)): ?>
+        <h2>Editar Cadastro de <?= $select['nome']; ?></h2>
+    	<form method="post" action="actions.php?up=1&id=<?= $id; ?>">
+    <?php else: ?>
+        <h1>Cadastro de Clientes</h1><br>
+        <form method="post" action="actions.php?cc=1" name="cadastro_cliente">
+    <?php endif; ?>
+
+        <div class="form-group" style="width: 500px;">
+            <label>Nome: </label>
+            <input type="text" class="form-control"  value="<?= isset($select) ? $select['nome'] : ''; ?>" 
+                name="<?= $concat; ?>nome" required />
+
+            <label>Cpf:</label>
+            <input type="text" class="form-control" value="<?= isset($select) ? $select['cpf'] : ''; ?>" 
+                onblur="javascript: validarCPF(this.value);" 
+                onkeypress="javascript: mascara(this, cpf_mask);" 
+                name="cpf" id="cpf"
+                maxlength="14" <?= isset($select) ? 'disabled' : 'required'; ?> >
+
+            <label>Rua: </label>
+            <input type="text" class="form-control" 
+                value="<?= isset($select) ? $select['rua'] : ''; ?>" 
+                name="<?= $concat; ?>rua"
+            />
+
+            <label>Numero: </label>
+            <input type="number" class="form-control" value="<?= isset($select) ? $select['numero'] : ''; ?>" name="<?= $concat; ?>numero"/>
+
+            <label>Complemento: </label>
+            <input type="text" class="form-control" value="<?= isset($select) ? $select['complemento'] : ''; ?>" name="<?= $concat; ?>complemento"/>
+
+            <label>Bairro: </label>
+            <input type="text" class="form-control"  value="<?= isset($select) ? $select['bairro'] : ''; ?>" name="<?= $concat; ?>bairro"/>
+
+            <label>Cidade: </label>
+            <input type="text" class="form-control" value="<?= isset($select) ? $select['cidade'] : ''; ?>" name="<?= $concat; ?>cidade"/>
+
+            <label>Telefone: </label>
+            <input type="text" class="form-control" id='telefone' 
+                value="<?= isset($select) ? $select['telefone1'] : ''; ?>" 
+                name="<?= $concat; ?>telefone1" 
+            />
+
+            <label>Celular: </label>
+            <input type="text" class="form-control celular" 
+                value="<?= isset($select) ? $select['telefone2'] : ''; ?>" 
+                name="<?= $concat; ?>telefone2" required 
+            />
+
+        </div>
+        <input type="reset" value="Limpar Dados" class="btn btn-danger"><?= $espaco2.$espaco2; ?>
+        <input type="submit" value="<?= isset($select) ? 'Atualizar' : 'Cadastrar'; ?>" class="btn btn-success">
+	</form><br>
+</div>

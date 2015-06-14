@@ -12,19 +12,21 @@
     <script src="../js/jquery.js"></script> 
     <script src="foundation/js/foundation.min.js"></script>
     <script src="../foundation/js/foundation.min.js"></script>
+    <script src="foundation/js/foundation/foundation.offcanvas.js"></script>
+    <script src="../foundation/js/foundation/foundation.offcanvas.js"></script>
     <script src="js/plus.js"></script>
     <script src="../js/plus.js"></script>
     <script src="js/ajax.js"></script>
     <script src="../js/ajax.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Magic</title>
+    <title>Magic - The Gathering</title>
 </head>
 <body>
 
 <?php
 $template->loads('main/menu', array(
     'menu' => array(
-        'Plaineswalker' => 'user',
+        'Player' => 'user',
         'Grimorio' => 'user/grimorio',
         'Wishlist' => 'user/wishlist'        
     )

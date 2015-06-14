@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Phalcon\Mvc\Controller;
 
@@ -15,13 +15,6 @@ class CardsController extends \Phalcon\Mvc\Controller
      */
     public function onConstruct()
     {
-        if ($this->session->has("user_name") == false) {
-            $this->dispatcher->forward(array(
-                "controller" => "sign",
-                "action" => "index"
-            ));
-        }
-
         $this->cardsModel = new Cards();
         $this->cardsModel->setDb($this->db);
     }
@@ -34,13 +27,21 @@ class CardsController extends \Phalcon\Mvc\Controller
     {
         $request = new \Phalcon\Http\Request();
 
+        $session_active = false;
         if ($this->dispatcher->getParam('wishlist')) {
             $cardsCollection = $this->getWishlistCards();
         } else {
             $cardsCollection = $this->definePostType($request);
         }
+
+        if ($this->session->has("user_name")) {
+            $session_active = true;
+        }
         
-        $this->view->setVar('cardsCollection', $cardsCollection);
+        $this->view->setVars(array(
+            'cardsCollection' => $cardsCollection,
+            'session_active' => $session_active
+        ));
     }
 
     /**
@@ -70,7 +71,7 @@ class CardsController extends \Phalcon\Mvc\Controller
     {
         $user_id = $this->session->get('user_id');
 
-        $multiverseid = $this->cardsModel->getAllWishCardsFromUserId($user_id);
+            $multiverseid = $this->cardsModel->getAllWishCardsFromUserId($user_id);
 
         if (empty($multiverseid)) {
         	echo '<h1>Wishlist: </h1><br><h4 style="margin-left: 150px; color: #F04124">Não existem cartas na wishlist</h4>';
@@ -154,21 +155,21 @@ class CardsController extends \Phalcon\Mvc\Controller
 
         if (!empty($col) && !empty($color) && !empty($mana)) {
             if ($col == 0 || !in_array($color, $colors) || $mana < 1 || $mana > 8) {
-                return header("Location: /magicPhalcon/");
+                return header("Location: ../");
             }
 
             return $this->getCards($col, $color, $mana);
 
         } elseif (!empty($col) && !empty($color)) {
             if ($col == 0 || !in_array($color, $colors)) {
-                return header("Location: /magicPhalcon/");
+                return header("Location: ../");
             }
 
             return $this->getCards($col, $color);
 
         } elseif (!empty($col) && !empty($mana)) {
             if ($col == 0 || $mana < 1 || $mana > 8) {
-                return header("Location: /magicPhalcon/");
+                return header("Location: ../");
             }
 
             return $this->getCards($col, null, $mana);     
@@ -177,7 +178,7 @@ class CardsController extends \Phalcon\Mvc\Controller
             return $this->getCards($col);
         }
 
-        return header("Location: /magicPhalcon/");
+        return header("Location: ../");
     }
 
     /**
@@ -235,7 +236,7 @@ class CardsController extends \Phalcon\Mvc\Controller
     {
     	$card_name = trim($card_name);
         if (($card = $this->cardsModel->getCardsByName($card_name)) == false) {
-            return header("Location: /magicPhalcon/");
+            return header("Location: ../");
         }
 
         $ret['cards'][0] = $card;

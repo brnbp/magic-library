@@ -1,5 +1,4 @@
 <?php
-
 require_once('../app/helper/helper.php');
 require_once('../app/system/Template.php');
 require_once('../app/bootstrap.php');
@@ -7,7 +6,7 @@ require_once('../app/bootstrap.php');
 use Phalcon\Session\Adapter\Files as Session;
 
 try {
-
+    
     //Register an autoloader
     $loader = new \Phalcon\Loader();
     $loader->registerDirs(array(
@@ -40,9 +39,10 @@ try {
         return $session;
     });
 
+    
     //Handle the request
     $application = new \Phalcon\Mvc\Application($di);
-
+    
     echo $application->handle()->getContent();
 
 } catch(\Phalcon\Exception $e) {

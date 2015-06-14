@@ -8,7 +8,7 @@ class UserController extends \Phalcon\Mvc\Controller
 	public function onConstruct()
 	{
 		if ($this->session->has("user_name") == false) {
-            $this->dispatcher->forward(array(
+            return $this->dispatcher->forward(array(
                 "controller" => "sign",
                 "action" => "index"
             ));
@@ -25,6 +25,13 @@ class UserController extends \Phalcon\Mvc\Controller
 
     public function wishlistAction()
     {
+        if ($this->session->has("user_name") == false) {
+            return $this->dispatcher->forward(array(
+                "controller" => "sign",
+                "action" => "index"
+            ));
+        }
+
         $this->dispatcher->setParams(array('wishlist' => true));
         $this->dispatcher->forward(array(
             "controller" => "cards",

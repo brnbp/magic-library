@@ -50,7 +50,7 @@ class SignController extends \Phalcon\Mvc\Controller
             }
         }
         
-        return header("Location: /magicPhalcon/");
+        return header("Location: ../");
     }
 
     /**
@@ -68,7 +68,7 @@ class SignController extends \Phalcon\Mvc\Controller
         $this->session->remove("user_name");
         $this->session->destroy();
         unset($this->session);
-        return header("Location: /magicPhalcon/");
+        return header("Location: ../");
     }
 
     /**
@@ -91,7 +91,7 @@ class SignController extends \Phalcon\Mvc\Controller
         $user_id = $this->signModel->registerUser($user);
 
         if ($user_id == 'exists' || $user_id == 'temporary_error') {
-            return header("Location: /magicPhalcon/sign/up");
+            return header("Location: ../sign/up");
         }
         $user['id'] = $user_id;
         unset($user['password']);

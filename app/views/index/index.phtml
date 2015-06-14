@@ -4,7 +4,7 @@
 ?>
 <br>
 <div class="row" data-equalizer style="float: left; margin-left: 100px;">
-    <div class="large-5 columns panel left" data-equalizer-watch>
+    <div class="small-10 large-5 columns panel left" data-equalizer-watch>
         <h3><small>Ver Coleção</small></h3>
         <form action="cards/" method="post">
             <select class="form-control" name="col">
@@ -42,15 +42,17 @@
         </form>
     </div>
 
-    <div class="large-4 columns panel right" >
-        <h3><small>Pesquisar por Nome de Card</small></h3>
-        <div class="form-group">
-            <form action="cards/" method="post">
-                <input type="text" name="card_name">
-                <button type="submit" class="tiny alert right">Pesquisar</button>
-            </form>
-        </div>
+    <div class="small-10 large-4 columns panel right" >
+        <div class="hide-for-small">
+            <h3><small>Pesquisar por Nome de Card</small></h3>
+            <div class="form-group">
+                <form action="cards/" method="post">
+                    <input type="text" name="card_name">
+                    <button type="submit" class="tiny alert right">Pesquisar</button>
+                </form>
+            </div>
         <hr>
+        </div>
         <h3><small>Pesquisar por Artista</small></h3>
         <div class="form-group">
             <form action="cards/" method="post">
@@ -59,7 +61,5 @@
             </form>
         </div>
     </div>
-    
 
-    
 </div>

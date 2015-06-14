@@ -22,24 +22,42 @@
         <h2>Artist: <b style="color: #F04124"><?= normalize($cardsCollection['artist_name'])?> </b></h2>
     <?php endif; ?>
     <div class='row' id='cards_view_grid'>
-        <ul class="small-block-grid-4">
+        <ul class="small-block-grid-1 large-block-grid-4 medium-block-grid-3    ">
             <?php foreach($cardsCollection['cards'] as $cards): ?>
                 <li>
                     <!-- <img src="../img/cards/<?=$cards['multiverseid']?>pt.jpg" width=225> -->
-                    <img src="<?= $cards['imagem'] ?>" width=225>
+                    <img src="<?= $cards['imagem'] ?>" width=225><br>
                     <span>Preço Médio: R$ <?= $cards['medium_price']?></span><br>
-                    <span>Collection/Number: <?= $cards['info_code'].'/'.$cards['number']; ?></span>
+                    <span>Collection/Number: <?= $cards['info_code'].'/'.$cards['number']; ?></span><br>
                     
-                    <?php if (empty($cardsCollection['wishlist'])) : ?>
+                    <?php 
+                    if ($session_active == true):
+                        if (empty($cardsCollection['wishlist'])) : ?>
                         <button class="tiny alert" onclick="inserir_registro(<?=$cards['multiverseid']?>)">
                             Adicionar a Wishlist
                         </button>
                     <?php else: ?>
                         <button class="tiny alert" onclick="deletar_registro(<?=$cards['multiverseid']?>)">Remover da Wishlist</button>
-                    <?php endif; ?>
+                    <?php endif; 
+                    endif;
+                    ?>
                     <hr>
                 </li>
             <?php endforeach; ?>
         </ul>
     </div>
 </section>
+
+<div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+    <li class="current"><a href="">1</a></li>
+    <li><a href="">2</a></li>
+    <li><a href="">3</a></li>
+    <li><a href="">4</a></li>
+    <li class="unavailable"><a href="">&hellip;</a></li>
+    <li><a href="">12</a></li>
+    <li><a href="">13</a></li>
+    <li class="arrow"><a href="">&raquo;</a></li>
+  </ul>
+</div>

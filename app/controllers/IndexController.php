@@ -5,16 +5,6 @@ use Phalcon\Mvc\Controller,
 
 class IndexController extends \Phalcon\Mvc\Controller
 {
-    public function onConstruct()
-    {
-        if ($this->session->has("user_name") == false) {
-            $this->dispatcher->forward(array(
-                "controller" => "sign",
-                "action" => "index"
-            ));
-        }
-    }
-
     public function indexAction()
     {   
         $decksModel = new Cards();
@@ -31,7 +21,5 @@ class IndexController extends \Phalcon\Mvc\Controller
         echo '<br><br><br> oi, nao existo :( ';
         $this->view->disable();
     }
-
-
 
 }

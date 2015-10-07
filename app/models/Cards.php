@@ -70,6 +70,7 @@ class Cards extends \Phalcon\Mvc\Model
         $card_name = strip_tags(addslashes($card_name));
 
         $query = $this->getBasicSql();
+
         $query .= "WHERE c.name like '%".$card_name."%' OR c.nome like '%".htmlentities($card_name)."%' ";
 
         return $this->db->fetchOne($query, Phalcon\Db::FETCH_ASSOC);

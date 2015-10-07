@@ -234,15 +234,17 @@ class CardsController extends \Phalcon\Mvc\Controller
      */
     private function getCardsByName($card_name)
     {
+
     	$card_name = trim($card_name);
         if (($card = $this->cardsModel->getCardsByName($card_name)) == false) {
+
             return header("Location: ../");
         }
 
         $ret['cards'][0] = $card;
         $ret['cards'][0]['imagem'] =  $this->getImageCard($card);
         $ret['deck'] = $this->cardsModel->getDeck($ret['cards'][0]['id_collection']);
-        
+
         return $ret;
     }
 
